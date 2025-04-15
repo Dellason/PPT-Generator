@@ -75,7 +75,7 @@ async def generate_ppt(task_list: TaskList):
             
             # Update current slide reference
             new_slide = copy_slide()
-            current_slide += new_slide
+            current_slide = new_slide
             
             # Find the table in the new slide
             current_table = None
@@ -104,7 +104,7 @@ async def generate_ppt(task_list: TaskList):
             
             # Increment row counter for next person
             row_num += 1
-            
+
         except IndexError:
             raise HTTPException(
                 status_code=500, 
