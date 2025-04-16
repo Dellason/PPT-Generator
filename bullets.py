@@ -9,8 +9,10 @@ def copy_slide():
     return working_page
     
  
+if __name__ == "__main__":
+    hehe = copy_slide()
 
-
+    
 # def create_new_slide():
 #     new_slide = prs.slides.add_slide(template_slide.slide_layout)
     

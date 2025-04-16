@@ -62,7 +62,7 @@ async def generate_ppt(task_list: TaskList):
         compile_task_length += len(tasks_text)
         
         # Check if we need a new slide
-        if row_num >= max_row or compile_task_length >= 1200:
+        if row_num >= max_row or compile_task_length >= 1000:
             # Create a new slide
             #new_slide = prs.slides.add_slide(page_layout)
             
@@ -72,7 +72,6 @@ async def generate_ppt(task_list: TaskList):
             #     newel = deepcopy(el)
             #     new_slide.shapes._spTree.insert_element_before(newel, 'p:extLst')
 
-            
             # Update current slide reference
             new_slide = copy_slide()
             current_slide = new_slide
