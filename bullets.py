@@ -1,11 +1,17 @@
 #To create new slides 
 from pptx import Presentation
+from copy import deepcopy
+
 prs = Presentation('Template.pptx')
 working_page = prs.slides[1]
 
-def copy_slide():
+def copy_slide(prs, template_slide):
+    new_slide = prs.slides.add_slide(template_slide.slide_layout)
+
     for shape in working_page.shapes:
         el = shape.element
+        newel = deepcopy(el)
+        new_slide.shapes._spTree.insert_element_before(newel, 'p:extLst')
     return working_page
     
  

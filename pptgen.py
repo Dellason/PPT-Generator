@@ -6,6 +6,8 @@ from typing import List
 from pptx import Presentation
 from copy import deepcopy
 from bullets import copy_slide
+import uvicorn
+import os
 
 app = FastAPI(title="PPT Generator")
 
@@ -73,7 +75,7 @@ async def generate_ppt(task_list: TaskList):
             #     new_slide.shapes._spTree.insert_element_before(newel, 'p:extLst')
 
             # Update current slide reference
-            new_slide = copy_slide()
+            new_slide = copy_slide(prs, current_slide) 
             current_slide = new_slide
             
             # Find the table in the new slide
@@ -109,7 +111,10 @@ async def generate_ppt(task_list: TaskList):
                 status_code=500, 
                 detail=f"Table index out of range. Check table dimensions. Row: {row_num}"
             )
-    
+    # delete previously saved presentation
+    if os.path.exists('tasks_presentation.pptx'):
+        os.remove('tasks_presentation.pptx')
+        
     # Save the presentation
     prs.save('tasks_presentation.pptx')
     
@@ -140,3 +145,12 @@ async def root():
             ]
         }
     }
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "pptgen:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )
